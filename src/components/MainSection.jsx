@@ -61,8 +61,8 @@ function MainSection() {
       {loading ? (
         <Loader />
       ) : (
-        <div className="flex flex-col gap-6 items-center mt-12">
-          <div className="flex items-center gap-4 overflow-x-auto pb-2 no-scrollbar">
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 flex flex-col gap-6 items-center mt-12 w-full">
+          <div className="flex items-center gap-4 overflow-x-auto pb-2 no-scrollbar w-full justify-start md:justify-center">
             {categories.map((cat) => (
               <button
                 key={cat}
@@ -77,64 +77,70 @@ function MainSection() {
               </button>
             ))}
           </div>
-          <div className="grid grid-cols-2 gap-8 items-center p-6 mt-6">
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-6 lg:gap-8 w-full mt-6">
             {data.map((value, index) => {
               return loading ? (
                 <Loader />
               ) : (
                 <div
                   key={index}
-                  className="flex flex-col gap-5 items-center border-2 border-gray-500 rounded-xl bg-white m-2"
+                  className="flex flex-col gap-5 items-stretch border border-slate-200 rounded-2xl bg-white overflow-hidden shadow-sm hover:shadow-md transition-shadow"
                 >
                   <Link
                     to={`/blog/${value.id}`}
-                    className="overflow-hidden hover:cursor-pointer"
+                    className="overflow-hidden hover:cursor-pointer block aspect-video w-full shrink-0"
                   >
                     <img
-                      className="rounded-t-xl w-full h-full object-cover hover:scale-105 transition-transform duration-1000 hover:rounded-t-xl"
+                      className="w-full h-full object-cover hover:scale-105 transition-transform duration-1000"
                       src={value.social_image}
                       alt=""
                     />
                   </Link>
-                  <div className="flex flex-col gap-6 items-start p-6 mb-3">
-                    <div className="flex flex-row gap-4 items-center">
-                      <h4>{value.readable_publish_date}</h4>
-                      <div className="w-1 h-1 rounded-full border-2 border-gray-600 bg-gray-600"></div>
-                      {value.tag_list != []? value.tag_list.map((value, index) => {
-                        return index < 3 ? <p key={value}>{value}</p> : null;
-                      }):<p>Not Known</p>}
-                      <div className="w-1 h-1 rounded-full border-2 border-gray-600 bg-gray-600"></div>
-                      <p className="uppercase">{value.language}</p>
+                  <div className="flex flex-col gap-4 items-start p-6 flex-1 justify-between">
+                    <div className="space-y-3 w-full">
+                      <div className="flex flex-wrap gap-2 items-center text-xs text-slate-500 font-semibold">
+                        <span>{value.readable_publish_date}</span>
+                        <span className="w-1.5 h-1.5 rounded-full bg-slate-200"></span>
+                        {value.tag_list && value.tag_list.length > 0 ? (
+                          value.tag_list.slice(0, 2).map((tag, idx) => (
+                            <span key={idx} className="text-indigo-600 uppercase tracking-wider text-[10px] bg-indigo-50 px-2 py-0.5 rounded">#{tag}</span>
+                          ))
+                        ) : (
+                          <span>Not Known</span>
+                        )}
+                        <span className="w-1.5 h-1.5 rounded-full bg-slate-200"></span>
+                        <span className="uppercase text-slate-600">{value.language || "EN"}</span>
+                      </div>
+                      <h2 className="text-slate-900 text-xl md:text-2xl font-bold hover:text-indigo-600 transition-colors line-clamp-2">
+                        <Link to={`/blog/${value.id}`}>{value.title}</Link>
+                      </h2>
+                      <p className="text-slate-500 text-sm font-medium line-clamp-3">
+                        {value.description}
+                      </p>
                     </div>
-                    <h1 className="text-black text-2xl font-bold">
-                      {value.title}
-                    </h1>
-                    <p className="text-gray-400 text-base font-medium">
-                      {value.description}
-                    </p>
-                    <div className="flex flex-row gap-3 items-center justify-between w-full mt-2">
+                    
+                    <div className="flex flex-row gap-3 items-center justify-between w-full mt-4 pt-4 border-t border-slate-100">
                       <div className="flex flex-row gap-3 items-center">
                         <img
-                          className="w-10 h-10 rounded-full"
+                          className="w-10 h-10 rounded-full border border-slate-100"
                           src={value.user.profile_image}
                           alt="image"
                         />
-                        <Link to={`/user/${value.user.user_id}`} className="text-base text-black font-medium hover:underline">
+                        <Link to={`/user/${value.user.user_id}`} className="text-sm text-slate-700 font-bold hover:underline">
                           {value.user.name}
                         </Link>
                       </div>
                       <div className="flex flex-row gap-4 items-center">
-                        <button onClick={() => {saveLikeBlog(value)}} className="cursor-pointer"><Heart size={30}/></button>
+                        <button onClick={() => {saveLikeBlog(value)}} className="cursor-pointer text-slate-400 hover:text-rose-500 transition-colors"><Heart size={24} /></button>
                         <Link
                           to={`/blog/${value.id}`}
-                          className="hover:bg-blue-200 hover:border-2 hover:border-blue-200 hover:rounded-xl hover:p-1 hover:cursor-pointer mr-2"
+                          className="hover:bg-blue-50 hover:rounded-xl p-1.5 transition-colors cursor-pointer mr-2"
                         >
                           <ArrowRight
                             className="text-blue-700 font-bold"
-                            size={30}
+                            size={24}
                           />
                         </Link>
-
                       </div>
                     </div>
                   </div>

@@ -19,7 +19,7 @@ function LikeBlog() {
     
   return (
     <>
-      <div className="animate-in fade-in slide-in-from-right-4 duration-500 space-y-8 p-12">
+      <div className="animate-in fade-in slide-in-from-right-4 duration-500 space-y-8 p-4 sm:p-8 md:p-12 max-w-7xl mx-auto w-full">
             <div className="flex items-center gap-4 mb-10">
               <Link to={"/"}
                 className="p-3 bg-white rounded-2xl border border-slate-200 hover:bg-slate-50 transition-colors shadow-sm text-slate-600"
@@ -34,14 +34,14 @@ function LikeBlog() {
               </div>
             </div>
 
-            <div className="grid lg:grid-cols-2 gap-6">
+            <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
               {likeBlog.filter(p => p.id).map((blog, index) => (
-                <div key={blog.id} className="relative group bg-white border border-slate-100 rounded-[2rem] p-5 flex gap-6 hover:shadow-xl hover:shadow-rose-500/5 transition-all border-l-4 border-l-indigo-600">
-                  <div className="w-32 h-32 md:w-44 md:h-44 shrink-0 rounded-2xl overflow-hidden relative shadow-md">
+                <div key={blog.id} className="relative group bg-white border border-slate-100 rounded-[2rem] p-4 sm:p-5 flex flex-col sm:flex-row gap-4 sm:gap-6 hover:shadow-xl hover:shadow-rose-500/5 transition-all border-l-4 border-l-indigo-600">
+                  <div className="w-full h-48 sm:w-32 sm:h-32 md:w-44 md:h-44 shrink-0 rounded-2xl overflow-hidden relative shadow-md">
                     <img src={blog.social_image} className="w-full h-full object-cover group-hover:scale-110 transition-transform duration-700" />
                   </div>
                   
-                  <div className="flex flex-col justify-between py-1 flex-1">
+                  <div className="flex flex-col justify-between py-1 flex-1 min-w-0">
                     <div className="space-y-2">
                        <div className="flex items-center justify-between">
                          <p className="text-[10px] font-bold text-slate-400 uppercase tracking-widest">{blog.readable_publish_date}</p>
@@ -67,9 +67,9 @@ function LikeBlog() {
                          <Link to={`/user/${blog.user.user_id}`} className="text-[10px] font-black text-slate-700 uppercase tracking-tighter hover:underline">{blog.user.name}</Link>
                        </div>
                        <div className="flex items-center gap-2">
-                         <button onClick={() => {deleteLikeBlog(index)}} className="cursor-pointer p-2 text-slate-300 hover:text-rose-500 transition-colors">
-                           <Trash2 size={20} />
-                         </button>
+                          <button onClick={() => {deleteLikeBlog(index)}} className="cursor-pointer p-2 text-slate-300 hover:text-rose-500 transition-colors">
+                            <Trash2 size={20} />
+                          </button>
                         
                        </div>
                     </div>

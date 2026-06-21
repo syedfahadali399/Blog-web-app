@@ -60,7 +60,7 @@ function BlogDetail() {
   return (
     <>
       {loading? <Loader/>:
-         <article className="animate-in slide-in-from-bottom-8 duration-700 max-w-3xl mx-auto space-y-8 pb-24 mt-14">
+         <article className="animate-in slide-in-from-bottom-8 duration-700 max-w-3xl mx-auto space-y-8 pb-24 mt-8 md:mt-14 px-4 sm:px-6 lg:px-8 w-full">
         <Link
           to={"/"}
           className="flex items-center gap-2 text-sm font-bold text-slate-400 hover:text-indigo-600 transition-colors group mb-8"
@@ -73,20 +73,20 @@ function BlogDetail() {
         </Link>
 
         <header className="space-y-6">
-          <div className="flex items-center gap-4 text-xs font-bold uppercase tracking-[0.3em] text-indigo-500">
+          <div className="flex flex-wrap items-center gap-2 sm:gap-4 text-xs font-bold uppercase tracking-[0.3em] text-indigo-500">
             {deepData2.map((value, index) => {
               return index < 3? ( 
-              <p key={value}>{value}</p>
+              <span key={value} className="bg-indigo-50 px-2 py-0.5 rounded text-[10px]">#{value}</span>
               ): null
             })}
             <span className="w-1.5 h-1.5 rounded-full bg-slate-200"></span>
             <span className="ml-2">Published {data.readable_publish_date}</span>
           </div>
-          <h1 className="text-4xl md:text-6xl font-extrabold tracking-tight text-slate-900 leading-[1.1]">
+          <h1 className="text-3xl sm:text-4xl md:text-5xl font-extrabold tracking-tight text-slate-900 leading-[1.1]">
             {data.title}
           </h1>
 
-          <div className="flex items-center justify-between py-6 border-y border-slate-100">
+          <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between py-6 border-y border-slate-100 gap-4 sm:gap-0">
             <div className="flex items-center gap-4">
               <img
                 className="w-10 h-10 rounded-full"
@@ -102,20 +102,20 @@ function BlogDetail() {
               </div>
             </div>
             <div className="flex items-center gap-3">
-              <button onClick={() => {saveLikeBlog(data)}} className="p-3 bg-slate-50 rounded-xl text-slate-400 hover:text-rose-500 hover:bg-rose-50 transition-all">
-                <Heart size={20} fill={`${likeBlog.find((blog) => blog.id == data.id)? "currentColor": "null"}`}/>
+              <button onClick={() => {saveLikeBlog(data)}} className="p-3 bg-slate-50 rounded-xl text-slate-400 hover:text-rose-500 hover:bg-rose-50 transition-all cursor-pointer">
+                <Heart size={20} fill={`${likeBlog.find((blog) => blog.id == data.id)? "currentColor": "none"}`}/>
               </button>
-              <button onClick={() => {blogSaver(data)}} className="p-3 bg-slate-50 rounded-xl text-slate-400 hover:text-indigo-600 hover:bg-indigo-50 transition-all">
-                <Bookmark fill={`${saveBlog.find((blog) => blog.id == data.id)? "currentColor": "null"}`} size={20} />
+              <button onClick={() => {blogSaver(data)}} className="p-3 bg-slate-50 rounded-xl text-slate-400 hover:text-indigo-600 hover:bg-indigo-50 transition-all cursor-pointer">
+                <Bookmark fill={`${saveBlog.find((blog) => blog.id == data.id)? "currentColor": "none"}`} size={20} />
               </button>
-              <button className="p-3 bg-slate-50 rounded-xl text-slate-400 hover:text-slate-800 transition-all">
+              <button className="p-3 bg-slate-50 rounded-xl text-slate-400 hover:text-slate-800 transition-all cursor-pointer">
                 <Share2 size={20} />
               </button>
             </div>
           </div>
         </header>
 
-        <div className="aspect-[21/9] rounded-3xl overflow-hidden shadow-2xl">
+        <div className="aspect-video sm:aspect-[21/9] rounded-3xl overflow-hidden shadow-2xl">
           <img
             src={data.social_image}
             className="w-full h-full object-cover"
@@ -130,11 +130,11 @@ function BlogDetail() {
 
         <div className="mt-20 pt-10 border-t border-slate-100 flex flex-col items-center text-center space-y-6">
           <h3 className="text-xl font-bold">Was this article helpful?</h3>
-          <div className="flex gap-4">
-            <button className="flex items-center gap-2 px-8 py-3 bg-indigo-600 text-white rounded-xl font-bold hover:bg-indigo-700 transition-all">
-              <Heart size={18} fill="white" /> Like Article
+          <div className="flex flex-col sm:flex-row gap-4 w-full sm:w-auto">
+            <button onClick={() => {saveLikeBlog(data)}} className="flex items-center justify-center gap-2 px-8 py-3 bg-indigo-600 text-white rounded-xl font-bold hover:bg-indigo-700 transition-all cursor-pointer w-full sm:w-auto">
+              <Heart size={18} fill={`${likeBlog.find((blog) => blog.id == data.id)? "white": "none"}`} /> Like Article
             </button>
-            <button className="flex items-center gap-2 px-8 py-3 bg-slate-100 text-slate-600 rounded-xl font-bold hover:bg-slate-200 transition-all">
+            <button className="flex items-center justify-center gap-2 px-8 py-3 bg-slate-100 text-slate-600 rounded-xl font-bold hover:bg-slate-200 transition-all cursor-pointer w-full sm:w-auto">
               <MessageSquare size={18} /> Comment
             </button>
           </div>
